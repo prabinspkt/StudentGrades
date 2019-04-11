@@ -691,7 +691,31 @@ VALUES (99,49,55);
 INSERT INTO StudentScores (StudentID, AssignmentID, Points)
 VALUES (99,50,51);
 
-
+#Student 10 Course 5
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,51,45);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,52,47);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,53,46);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,54,49);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,55,44);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,56,48);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,57,7);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,58,9);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,59,8);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,60,8);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,61,91);
+INSERT INTO StudentScores (StudentID, AssignmentID, Points)
+VALUES (110,62,93);
 
 
 
