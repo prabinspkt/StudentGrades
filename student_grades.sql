@@ -717,6 +717,52 @@ VALUES (110,61,91);
 INSERT INTO StudentScores (StudentID, AssignmentID, Points)
 VALUES (110,62,93);
 
+#Compute the average/highest/lowest score of an assignment
+SELECT AVG(Points) from StudentScores
+WHERE AssignmentId = 5;
+SELECT MAX(Points) from StudentScores
+WHERE AssignmentId = 5;
+SELECT MIN(Points) from StudentScores
+WHERE AssignmentId = 5;
+
+#List all of the students in a given course;
+SELECT FirstName, LastName from Students
+WHERE StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =
+(SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II"));
+
+#List all of the students in a course and all of their scores on every assignment;
+SELECT s.FirstName, s.LastName, ss.AssignmentID, ss.Points from Students s INNER JOIN
+StudentScores ss ON s.StudentID = ss.StudentID
+WHERE s.StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =
+(SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II"));
+
+#Add an assignment to a course;
+INSERT INTO Assignments (DistributionID, Instance, PossiblePoints)
+VALUES (
+(
+SELECT DistributionID FROM Distribution WHERE CourseID = 
+(SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic") AND Category = "Assignment"
+),
+5,
+50
+);
+
+#Subqueries for the above query, Required values to input (12,5,50);
+#Distribution ID from CourseName
+SELECT DistributionID FROM Distribution WHERE CourseID = 
+(SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic") AND Category = "Assignment";
+#Instance from MAX instance of the distribution
+# Could not use it because SQL does not allow inserting into the same table from which selection
+# is done, which in this case is the Assignments table
+SELECT MAX(Instance) FROM Assignments WHERE DistributionID = (SELECT DistributionID FROM Distribution WHERE CourseID = 
+(SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic") AND Category = "Assignment");
+
+
+
+
+
+
+
 
 
 
