@@ -757,7 +757,42 @@ SELECT DistributionID FROM Distribution WHERE CourseID =
 SELECT MAX(Instance) FROM Assignments WHERE DistributionID = (SELECT DistributionID FROM Distribution WHERE CourseID = 
 (SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic") AND Category = "Assignment");
 
+#Change the percentages of the categories for a course;
+UPDATE Distribution
+SET Percent = 30 WHERE Category = "Assignment" AND CourseID = (
+SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic");
+UPDATE Distribution
+SET Percent = 30 WHERE Category = "Project" AND CourseID = (
+SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic");
+UPDATE Distribution
+SET Percent = 40 WHERE Category = "Test" AND CourseID = (
+SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic");
 
+# To see the values of the Points in Assignment before and after adding 2 points
+# to each student in Project 1 of Course Computer Organization II
+SELECT StudentID, Points FROM StudentScores WHERE AssignmentID IN (
+SELECT AssignmentID FROM Assignments WHERE DistributionID = 3);
+
+#Add 2 points to the score of each student on an assignment;
+UPDATE StudentScores
+SET Points = (Points + 2) WHERE AssignmentID IN (
+SELECT AssignmentID FROM Assignments WHERE DistributionID = 
+(SELECT DistributionID FROM Distribution WHERE Category = "Project" AND CourseID = 
+(SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II")
+)
+AND Instance = 1);
+
+#Add 2 points just to those students whose last name contains a ‘Q’.
+UPDATE StudentScores
+SET Points = (Points - 2) WHERE StudentID IN 
+(SELECT StudentID FROM Students WHERE LastName LIKE "%Q%"
+) AND
+AssignmentID IN (
+SELECT AssignmentID FROM Assignments WHERE DistributionID = 
+(SELECT DistributionID FROM Distribution WHERE Category = "Project" AND CourseID = 
+(SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II")
+)
+AND Instance = 1);
 
 
 
