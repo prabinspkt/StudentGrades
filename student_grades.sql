@@ -784,7 +784,7 @@ AND Instance = 1);
 
 #Add 2 points just to those students whose last name contains a ‘Q’.
 UPDATE StudentScores
-SET Points = (Points - 2) WHERE StudentID IN 
+SET Points = (Points + 2) WHERE StudentID IN 
 (SELECT StudentID FROM Students WHERE LastName LIKE "%Q%"
 ) AND
 AssignmentID IN (
