@@ -730,11 +730,20 @@ SELECT FirstName, LastName from Students
 WHERE StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =
 (SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II"));
 
+#OR
+SELECT FirstName, LastName from Students
+WHERE StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =1);
+
 #List all of the students in a course and all of their scores on every assignment;
 SELECT s.FirstName, s.LastName, ss.AssignmentID, ss.Points from Students s INNER JOIN
 StudentScores ss ON s.StudentID = ss.StudentID
 WHERE s.StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =
 (SELECT CourseID FROM Courses WHERE CourseName = "Computer Organization II"));
+
+#OR
+SELECT s.FirstName, s.LastName, ss.AssignmentID, ss.Points from Students s INNER JOIN
+StudentScores ss ON s.StudentID = ss.StudentID
+WHERE s.StudentID IN (SELECT StudentID from Enrollment WHERE CourseID =1);
 
 #Add an assignment to a course;
 INSERT INTO Assignments (DistributionID, Instance, PossiblePoints)
@@ -757,6 +766,10 @@ SELECT DistributionID FROM Distribution WHERE CourseID =
 SELECT MAX(Instance) FROM Assignments WHERE DistributionID = (SELECT DistributionID FROM Distribution WHERE CourseID = 
 (SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic") AND Category = "Assignment");
 
+#OR 
+INSERT INTO Assignments (DistributionID, Instance, PossiblePoints)
+VALUES (12, 5, 50);
+
 #Change the percentages of the categories for a course;
 UPDATE Distribution
 SET Percent = 30 WHERE Category = "Assignment" AND CourseID = (
@@ -767,6 +780,15 @@ SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic");
 UPDATE Distribution
 SET Percent = 40 WHERE Category = "Test" AND CourseID = (
 SELECT CourseID FROM Courses WHERE CourseName = "Digital Logic");
+
+#OR
+UPDATE Distribution
+SET Percent = 30 WHERE DistributionID = 12;
+UPDATE Distribution
+SET Percent = 30 WHERE DistributionID = 13;
+UPDATE Distribution
+SET Percent = 30 WHERE DistributionID = 14;
+
 
 # To see the values of the Points in Assignment before and after adding 2 points
 # to each student in Project 1 of Course Computer Organization II
@@ -782,6 +804,10 @@ SELECT AssignmentID FROM Assignments WHERE DistributionID =
 )
 AND Instance = 1);
 
+#OR
+UPDATE StudentScores
+SET Points = (Points + 2) WHERE AssignmentID = 10;
+
 #Add 2 points just to those students whose last name contains a ‘Q’.
 UPDATE StudentScores
 SET Points = (Points + 2) WHERE StudentID IN 
@@ -794,6 +820,11 @@ SELECT AssignmentID FROM Assignments WHERE DistributionID =
 )
 AND Instance = 1);
 
+#OR
+UPDATE StudentScores
+SET Points = (Points + 2) WHERE StudentID IN 
+(SELECT StudentID FROM Students WHERE LastName LIKE "%Q%"
+) AND AssignmentID = 10;
 
 
 
